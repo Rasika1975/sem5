@@ -1,684 +1,656 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CN Practicals — Experiments 1 to 10</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI & Soft Computing Practicals — Experiments 3 to 10</title>
 <style>
-:root{color-scheme:dark;--bg:#080a0e;--panel:#11151c;--line:#303744;--text:#e8edf5;--muted:#9ca8ba;--accent:#8ab4ff;--btn:#243a5b}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.45}
-header{padding:20px 16px 14px;text-align:center;border-bottom:1px solid var(--line);background:#0c1017}h1{font-size:20px;margin:0 0 6px}header p{margin:0;color:var(--muted);font-size:12px}.wrap{max-width:1050px;margin:0 auto;padding:14px}
-nav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}nav a{color:#d9e6ff;text-decoration:none;border:1px solid var(--line);background:#101722;border-radius:6px;padding:5px 9px;font-size:11px}nav a:hover{background:#1b2c45}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:13px;margin:0 0 13px;scroll-margin-top:10px}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}.exp{font-size:10px;letter-spacing:1px;color:var(--accent);font-weight:bold}h2{font-size:15px;line-height:1.3;margin:3px 0 4px}.lang{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:2px 5px}.copy{flex-shrink:0;color:#fff;background:var(--btn);border:1px solid #48658d;border-radius:6px;padding:7px 10px;font-size:11px;cursor:pointer}.copy:hover{background:#31517a}.copy:active{transform:translateY(1px)}
-pre{margin:8px 0 0;padding:11px;background:#050609;border:1px solid #252a33;border-radius:6px;overflow:auto;font:11.5px/1.45 Consolas,"Courier New",monospace;tab-size:4;white-space:pre;max-height:none}code{font:inherit;color:#e6edf7;white-space:pre}.note{font-size:11px;color:#c3ccd9;margin:6px 0 8px;padding:7px 9px;border-left:2px solid #7aa2e8;background:#0b111a}.toplink{display:block;text-align:right;font-size:11px;color:var(--muted);text-decoration:none;margin:2px 0 0}.foot{font-size:11px;color:var(--muted);text-align:center;padding:6px 0 18px}
-@media(max-width:600px){body{font-size:12px}.wrap{padding:8px}.card{padding:9px}.cardhead{align-items:flex-start}.copy{font-size:10px;padding:6px 7px}pre{font-size:10.5px;padding:8px}h1{font-size:18px}}
-
-.subcode{padding-top:7px;margin-top:10px;border-top:1px solid var(--line)}.subcode:first-of-type{border-top:0}.subcode .cardhead{margin-bottom:5px}.subcode h2{font-size:13px}
-</style>
-</head>
-<body id="top">
-<header><h1>Computer Networks Practical Codes</h1><p>Experiments 1–10 • Small text • Dark theme • Copy buttons</p></header>
-<div class="wrap">
-<nav aria-label="Experiment navigation"><a href="#exp1">Exp 1</a>
-<a href="#exp2">Exp 2</a>
-<a href="#exp3">Exp 3</a>
-<a href="#exp4">Exp 4</a>
-<a href="#exp5">Exp 5</a>
-<a href="#exp6">Exp 6</a>
-<a href="#exp7">Exp 7</a>
-<a href="#exp8">Exp 8</a>
-<a href="#exp9">Exp 9</a>
-<a href="#exp10">Exp 10</a></nav>
-<section class="card" id="exp1">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 01</div><h2>Leaky Bucket Algorithm</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-1-1', this)">Copy Code</button></div>
-<pre><code id="code-1-1">capacity = int(input("Enter bucket capacity: "))
-rate = int(input("Enter output rate: "))
-n = int(input("Enter number of packets: "))
-
-bucket = 0
-
-for i in range(n):
-    packet = int(input("Enter packet size: "))
-
-    if bucket + packet &lt;= capacity:
-        bucket += packet
-        print("Packet accepted")
-    else:
-        print("Packet dropped")
-
-    sent = min(bucket, rate)
-    bucket -= sent
-
-    print("Data sent:", sent)
-    print("Remaining data:", bucket)
-
-print("Transmission completed")</code></pre>
-</section>
-<section class="card" id="exp2">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 02</div><h2>Stop and Wait Protocol</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-2-2', this)">Copy Code</button></div>
-<pre><code id="code-2-2">n = int(input("Enter number of frames: "))
-
-for i in range(1, n + 1):
-    print("Frame", i, "sent")
-    print("ACK received for frame", i)
-
-print("All frames sent successfully")</code></pre>
-</section>
-<section class="card" id="exp3">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 03</div><h2>Sliding Window Protocol</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-3-3', this)">Copy Code</button></div>
-<pre><code id="code-3-3">n = int(input("Enter number of frames: "))
-w = int(input("Enter window size: "))
-
-for i in range(1, n + 1, w):
-    end = min(i + w - 1, n)
-
-    for j in range(i, end + 1):
-        print("Frame", j, "sent")
-
-    for j in range(i, end + 1):
-        print("ACK received for frame", j)
-
-    print("Window slides forward")
-
-print("All frames sent successfully")</code></pre>
-</section>
-<section class="card" id="exp4"><div class="cardhead"><div><div class="exp">EXPERIMENT 04</div><h2>Framing Methods</h2><span class="lang">Python</span></div></div>
-<p class="note">Four framing methods are shown below. Use each Copy Code button to copy that method separately.</p><div class="subcode">
-<div class="cardhead"><div><h2>Character Count Framing Method</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-4-1', this)">Copy Code</button></div>
-<pre><code id="code-4-1"># Character Count Framing Method
-
-data = input("Enter data: ")
-
-count = len(data) + 1
-frame = str(count) + data
-
-print("Original Data:", data)
-print("Character Count:", count)
-print("Transmitted Frame:", frame)</code></pre>
-</div><div class="subcode">
-<div class="cardhead"><div><h2>Character Stuffing</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-4-2', this)">Copy Code</button></div>
-<pre><code id="code-4-2"># Character Stuffing
-
-FLAG = '~'
-ESC = '\\'
-
-data = input("Enter data: ")
-stuffed = ""
-
-for ch in data:
-    if ch == FLAG or ch == ESC:
-        stuffed += ESC
-    stuffed += ch
-
-frame = FLAG + stuffed + FLAG
-
-print("Original Data:", data)
-print("Stuffed Frame:", frame)</code></pre>
-</div><div class="subcode">
-<div class="cardhead"><div><h2>Bit Stuffing</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-4-3', this)">Copy Code</button></div>
-<pre><code id="code-4-3"># Bit Stuffing
-
-data = input("Enter binary data: ")
-stuffed = ""
-count = 0
-
-for bit in data:
-    stuffed += bit
-
-    if bit == '1':
-        count += 1
-    else:
-        count = 0
-
-    if count == 5:
-        stuffed += '0'
-        count = 0
-
-print("Original Data:", data)
-print("Stuffed Data:", stuffed)</code></pre>
-</div><div class="subcode">
-<div class="cardhead"><div><h2>Physical Layer Coding Violation</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-4-4', this)">Copy Code</button></div>
-<pre><code id="code-4-4"># Physical Layer Coding Violation
-
-data = input("Enter data: ")
-
-start = "&lt;START&gt;"
-end = "&lt;END&gt;"
-
-frame = start + data + end
-
-print("Original Data:", data)
-print("Transmitted Frame:", frame)</code></pre>
-</div></section>
-<section class="card" id="exp5">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 05</div><h2>Distance Vector Routing Algorithm</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-5-5', this)">Copy Code</button></div>
-<pre><code id="code-5-5">INF = 999
-
-# Cost between routers
-cost = [
-    [0,   1,   4, INF],
-    [1,   0,   2,   6],
-    [4,   2,   0,   3],
-    [INF, 6,   3,   0]
-]
-
-nodes = ["A", "B", "C", "D"]
-dist = [row[:] for row in cost]
-
-# Update routing tables
-while True:
-    new_dist = [row[:] for row in dist]
-
-    for i in range(4):
-        for j in range(4):
-            for k in range(4):
-                if cost[i][k] != INF:
-                    new_dist[i][j] = min(
-                        new_dist[i][j],
-                        cost[i][k] + dist[k][j]
-                    )
-
-    if new_dist == dist:
-        break
-
-    dist = new_dist
-
-# Display final routing table
-print("Final Distance Table:")
-
-for i in range(4):
-    print("Router", nodes[i], end=": ")
-    for j in range(4):
-        print(nodes[j], "=", dist[i][j], end="  ")
-    print()</code></pre>
-<div class="subcode">
-<div class="cardhead"><div><h2>Additional Distance Vector Routing Code</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-5-2', this)">Copy Code</button></div>
-<p class="note">The original routing-table program above is kept unchanged. This is the additional version you supplied.</p>
-<pre><code id="code-5-2"># Distance Vector Routing Algorithm
-
-n = int(input("Enter number of routers: "))
-
-print("Enter cost matrix (use 999 for no connection):")
-
-cost = []
-for i in range(n):
-    row = list(map(int, input().split()))
-    cost.append(row)
-
-dist = [row[:] for row in cost]
-
-# Distance Vector Algorithm
-for k in range(n):
-    for i in range(n):
-        for j in range(n):
-            if dist[i][k] + dist[k][j] &lt; dist[i][j]:
-                dist[i][j] = dist[i][k] + dist[k][j]
-
-print("\nFinal Routing Table:")
-
-for i in range(n):
-    print("\nRouter", i + 1)
-    for j in range(n):
-        print("To Router", j + 1, "Cost =", dist[i][j])</code></pre>
-</div></section>
-<section class="card" id="exp6">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 06</div><h2>Socket Programming — PING</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-6-6', this)">Copy Code</button></div>
-<p class="note">Raw sockets may require administrator/root permissions and may not work in online compilers.</p>
-<pre><code id="code-6-6">import socket
-import struct
-import time
-import os
-import sys
-
-def checksum(data):
-    total = 0
-
-    for i in range(0, len(data) - 1, 2):
-        total += (data[i] &lt;&lt; 8) + data[i + 1]
-
-    if len(data) % 2:
-        total += data[-1] &lt;&lt; 8
-
-    total = (total &gt;&gt; 16) + (total &amp; 0xffff)
-    total += total &gt;&gt; 16
-
-    return ~total &amp; 0xffff
-
-
-host = input("Enter destination: ").strip()
-
-try:
-    address = socket.gethostbyname(host)
-
-    sock = socket.socket(
-        socket.AF_INET,
-        socket.SOCK_RAW,
-        socket.IPPROTO_ICMP
-    )
-
-    sock.settimeout(3)
-
-    packet_id = os.getpid() &amp; 0xffff
-    data = b"Hello"
-
-    header = struct.pack("!BBHHH", 8, 0, 0, packet_id, 1)
-    check = checksum(header + data)
-    header = struct.pack(
-        "!BBHHH", 8, 0, check, packet_id, 1
-    )
-
-    start = time.time()
-    sock.sendto(header + data, (address, 1))
-
-    reply, sender = sock.recvfrom(1024)
-    elapsed = (time.time() - start) * 1000
-
-    header_length = (reply[0] &amp; 15) * 4
-    icmp = reply[header_length:header_length + 8]
-    reply_type = struct.unpack("!BBHHH", icmp)[0]
-
-    if reply_type == 0:
-        print("Reply received from", sender[0])
-        print("Time:", round(elapsed, 2), "ms")
-    else:
-        print("ICMP reply received, type:", reply_type)
-
-except socket.timeout:
-    print("Request timed out.")
-
-except (PermissionError, OSError) as error:
-    print("Socket error:", error)
-    print("Try running locally with suitable permissions.")
-
-finally:
-    if "sock" in locals():
-        sock.close()</code></pre>
-</section>
-<section class="card" id="exp7">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 07</div><h2>IP Address Configuration</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-7-7', this)">Copy Code</button></div>
-<p class="note">This program reads the Windows ipconfig output and displays IP details. It does not change network settings.</p>
-<pre><code id="code-7-7"># IP Address Configuration
-
-import socket
-import subprocess
-
-hostname = socket.gethostname()
-result = subprocess.getoutput("ipconfig")
-
-print("IP Address Configuration")
-print("Host Name:", hostname)
-
-for line in result.splitlines():
-    if "IPv4 Address" in line:
-        print("IP Address:", line.split(":")[-1].strip())
-
-    elif "Subnet Mask" in line:
-        print("Subnet Mask:", line.split(":")[-1].strip())
-
-    elif "Default Gateway" in line:
-        gateway = line.split(":")[-1].strip()
-        if gateway:
-            print("Default Gateway:", gateway)</code></pre>
-</section>
-<section class="card" id="exp8">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 08</div><h2>Socket Programming — TRACEROUTE</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-8-8', this)">Copy Code</button></div>
-<p class="note">Raw sockets may require administrator/root permissions and may not work in online compilers.</p>
-<pre><code id="code-8-8">import os
-import socket
-import struct
-import time
-
-ICMP_ECHO_REQUEST = 8
-ICMP_CODE = 0
-TIMEOUT = 2.0
-MAX_HOPS = 30
-
-
-def checksum(source_string):
-    """Calculate the checksum for the ICMP packet header."""
-    sum_val = 0
-    count_to = (len(source_string) // 2) * 2
-    count = 0
-    while count &lt; count_to:
-        this_val = source_string[count + 1] * 256 + source_string[count]
-        sum_val = sum_val + this_val
-        sum_val = sum_val &amp; 0xFFFFFFFF
-        count = count + 2
-    if count_to &lt; len(source_string):
-        sum_val = sum_val + source_string[len(source_string) - 1]
-        sum_val = sum_val &amp; 0xFFFFFFFF
-    sum_val = (sum_val &gt;&gt; 16) + (sum_val &amp; 0xFFFF)
-    sum_val = sum_val + (sum_val &gt;&gt; 16)
-    answer = ~sum_val
-    answer = answer &amp; 0xFFFF
-    answer = answer &gt;&gt; 8 | (answer &lt;&lt; 8 &amp; 0xFF00)
-    return answer
-
-
-def create_icmp_packet(packet_id):
-    """Create an ICMP echo request packet."""
-    header = struct.pack("bbHHh", ICMP_ECHO_REQUEST, ICMP_CODE, 0, packet_id, 1)
-    data = struct.pack("d", time.time())
-    my_checksum = checksum(header + data)
-    header = struct.pack(
-        "bbHHh", ICMP_ECHO_REQUEST, ICMP_CODE, socket.htons(my_checksum), packet_id, 1
-    )
-    return header + data
-
-
-def traceroute(dest_name):
-    dest_addr = socket.gethostbyname(dest_name)
-    print(f"Traceroute to {dest_name} ({dest_addr}) with max hops {MAX_HOPS}:\n")
-    print("Hop\tTime (ms)\tRouter IP Address")
-    print("-" * 40)
-
-    icmp = socket.getprotobyname("icmp")
-
-    for ttl in range(1, MAX_HOPS + 1):
-        try:
-            my_socket = socket.socket(socket.AF_INET, socket.SOCK_RAW, icmp)
-        except PermissionError:
-            print(
-                "Error: Raw sockets require Administrator or Root privileges. Please"
-                " run your script as Administrator."
-            )
+:root{color-scheme:dark;--bg:#090d16;--panel:#111827;--panel2:#0b1220;--line:#263449;--text:#edf2fb;--muted:#a9b6ca;--accent:#7dd3fc;--green:#a7f3d0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.6 Arial,Helvetica,sans-serif}header{padding:30px 18px 22px;background:linear-gradient(135deg,#101b31,#101827);border-bottom:1px solid var(--line)}.wrap{max-width:1050px;margin:auto;padding:0 16px}h1{font-size:25px;margin:0 0 7px}header p{margin:0;color:var(--muted)}.notice{margin:18px 0;padding:12px 14px;border:1px solid #24516a;background:#0c2533;border-radius:9px;color:#d6f3ff}.layout{display:grid;grid-template-columns:185px minmax(0,1fr);gap:20px;padding-top:20px;padding-bottom:40px}aside{position:sticky;top:12px;align-self:start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px;max-height:calc(100vh - 24px);overflow:auto}aside strong{display:block;margin-bottom:8px}aside a{display:block;color:var(--muted);text-decoration:none;padding:5px 7px;border-radius:5px;font-size:12px}aside a:hover{background:#1d2b40;color:white}.experiment{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:18px;overflow:hidden;scroll-margin-top:12px}.card-head{display:flex;gap:12px;align-items:center;padding:15px 17px 8px}.number{background:#17344b;color:var(--accent);border:1px solid #27506c;border-radius:7px;padding:3px 8px;font-weight:bold;font-size:12px}h2{font-size:17px;margin:0}.aim{margin:4px 17px 15px;padding:11px 12px;background:#0c1422;border-left:3px solid var(--accent);border-radius:4px;color:#dce7f6}.code-head{display:flex;align-items:center;justify-content:space-between;background:#0b1220;border-top:1px solid var(--line);padding:9px 14px;color:var(--muted);font-size:12px}.copy{background:#1d354d;color:#eaf7ff;border:1px solid #345675;border-radius:6px;padding:6px 11px;cursor:pointer;font-size:12px}.copy:hover{background:#28506e}pre{margin:0;padding:15px;overflow:auto;background:#070b12;color:#e4edf8;font:12px/1.65 Consolas,Monaco,"Courier New",monospace;tab-size:4}code{white-space:pre}footer{color:var(--muted);font-size:12px;text-align:center;padding:0 0 25px}@media(max-width:700px){.layout{grid-template-columns:1fr}aside{position:static;max-height:none}aside a{display:inline-block;margin:2px}h1{font-size:21px}.card-head{align-items:flex-start}h2{font-size:15px}pre{font-size:11px}}
+</style></head>
+<body><header><div class="wrap"><h1>AI &amp; Soft Computing Practicals</h1><p>Experiments 3–10 · Aims and Python programs</p></div></header>
+<div class="wrap"><div class="notice">Tip: Click <b>Copy code</b> for an individual program, then paste it into an online Python compiler. Some experiments contain multiple parts; run each part separately.</div>
+<div class="layout"><aside><strong>Quick navigation</strong><a href="#exp1">Experiment 3</a><a href="#exp2">Experiment 3A</a><a href="#exp3">Experiment 3B</a><a href="#exp4">Experiment 3C</a><a href="#exp5">Experiment 4A</a><a href="#exp6">Experiment 4B</a><a href="#exp7">Experiment 5</a><a href="#exp8">Experiment 6</a><a href="#exp9">Experiment 7A</a><a href="#exp10">Experiment 7B</a><a href="#exp11">Experiment 8A</a><a href="#exp12">Experiment 8B</a><a href="#exp13">Experiment 9</a><a href="#exp14">Experiment 10</a></aside><main><section class="experiment" id="exp1">
+      <div class="card-head"><span class="number">01</span><h2>Experiment 3: Water Jug Problem using BFS</h2></div>
+      <p class="aim"><strong>Aim:</strong> To solve the Water Jug Problem using Breadth-First Search (BFS).</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Experiment 3: Water Jug Problem using BFS
+
+from collections import deque
+
+def water_jug(capacity1, capacity2, target):
+    queue = deque([(0, 0)])
+    visited = set()
+
+    while queue:
+        x, y = queue.popleft()
+
+        if (x, y) in visited:
+            continue
+
+        visited.add((x, y))
+        print(&quot;Jug 1:&quot;, x, &quot;Jug 2:&quot;, y)
+
+        if x == target or y == target:
+            print(&quot;Target amount reached!&quot;)
             return
 
-        # Set the Time-to-Live (TTL) socket option
-        my_socket.setsockopt(socket.IPPROTO_IP, socket.IP_TTL, ttl)
-        my_socket.settimeout(TIMEOUT)
+        states = [
+            (capacity1, y),  # Fill Jug 1
+            (x, capacity2),  # Fill Jug 2
+            (0, y),          # Empty Jug 1
+            (x, 0),          # Empty Jug 2
+            (max(0, x - (capacity2 - y)),
+             min(capacity2, x + y)),  # Pour Jug 1 to Jug 2
+            (min(capacity1, x + y),
+             max(0, y - (capacity1 - x)))  # Pour Jug 2 to Jug 1
+        ]
 
-        packet_id = os.getpid() &amp; 0xFFFF
-        packet = create_icmp_packet(packet_id)
+        for state in states:
+            if state not in visited:
+                queue.append(state)
 
-        start_time = time.time()
-        try:
-            my_socket.sendto(packet, (dest_addr, 1))
-            _, curr_addr = my_socket.recvfrom(512)
-            curr_addr = curr_addr[0]
-            elapsed_time = (time.time() - start_time) * 1000
+    print(&quot;Target amount cannot be measured.&quot;)
 
-            print(f"{ttl}\t{elapsed_time:.2f} ms\t{curr_addr}")
+# Jug capacities and target
+water_jug(4, 3, 2)</code></pre>
+    </section><section class="experiment" id="exp2">
+      <div class="card-head"><span class="number">02</span><h2>Experiment 3A: N-Queen Problem</h2></div>
+      <p class="aim"><strong>Aim:</strong> To solve the N-Queen Problem using backtracking.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Experiment 3A: N-Queen Problem
 
-            # Stop tracing if destination is reached
-            if curr_addr == dest_addr:
-                print("\nTrace complete.")
-                break
+N = 4
+board = [-1] * N
 
-        except socket.timeout:
-            print(f"{ttl}\t* * *\tRequest timed out.")
-        finally:
-            my_socket.close()
+def is_safe(row, col):
+    for i in range(row):
+        if board[i] == col:
+            return False
 
+        if abs(board[i] - col) == abs(i - row):
+            return False
 
-if __name__ == "__main__":
-    # Target destination (e.g., Google Public DNS)
-    target = "8.8.8.8"
-    traceroute(target)</code></pre>
-</section>
-<section class="card" id="exp9">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 09</div><h2>FTP File Transfer — Server</h2><span class="lang">Java</span></div>
-<button class="copy" onclick="copyCode('code-9-9', this)">Copy Code</button></div>
-<p class="note">Run FileServer.java first, then FileClient.java in a separate terminal. The source is arranged from your pasted file.</p>
-<pre><code id="code-9-9">import java.io.*;
-import java.net.*;
+    return True
 
-public class FileServer {
-    public static void main(String[] args) {
-        int port = 5000;
+def solve(row):
+    if row == N:
+        return True
 
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("Server started...");
-            System.out.println("Waiting for client...");
+    for col in range(N):
+        if is_safe(row, col):
+            board[row] = col
 
-            Socket socket = serverSocket.accept();
-            System.out.println("Client connected.");
+            if solve(row + 1):
+                return True
 
-            BufferedReader reader = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
+            board[row] = -1
 
-            String fileName = reader.readLine();
-            System.out.println("Requested file: " + fileName);
+    return False
 
-            File file = new File(fileName);
-
-            PrintWriter writer = new PrintWriter(
-                socket.getOutputStream(), true);
-
-            if (!file.exists()) {
-                writer.println("ERROR");
-                System.out.println("File not found.");
-            } else {
-                writer.println("OK");
-
-                FileInputStream fileInputStream =
-                    new FileInputStream(file);
-
-                OutputStream outputStream =
-                    socket.getOutputStream();
-
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-
-                while ((bytesRead =
-                        fileInputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-
-                outputStream.flush();
-                fileInputStream.close();
-
-                System.out.println("File sent successfully.");
-            }
-
-            socket.close();
-            serverSocket.close();
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-}</code></pre>
-</section>
-<section class="card subcard">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 09</div><h2>FTP File Transfer — Client</h2><span class="lang">Java</span></div>
-<button class="copy" onclick="copyCode('code-9-10', this)">Copy Code</button></div>
-<p class="note">Run FileServer.java first, then FileClient.java in a separate terminal. The source is arranged from your pasted file.</p>
-<pre><code id="code-9-10">import java.io.*;
-import java.net.*;
-
-public class FileClient {
-    public static void main(String[] args) {
-        String serverIP = "127.0.0.1";
-        int port = 5000;
-
-        try {
-            Socket socket = new Socket(serverIP, port);
-            System.out.println("Connected to server.");
-
-            BufferedReader keyboard = new BufferedReader(
-                new InputStreamReader(System.in));
-
-            System.out.print("Enter file name: ");
-            String fileName = keyboard.readLine();
-
-            PrintWriter writer = new PrintWriter(
-                socket.getOutputStream(), true);
-
-            writer.println(fileName);
-
-            BufferedReader reader = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
-
-            String status = reader.readLine();
-
-            if (status.equals("OK")) {
-                String outputFile = "received_" + fileName;
-
-                FileOutputStream fileOutputStream =
-                    new FileOutputStream(outputFile);
-
-                InputStream inputStream =
-                    socket.getInputStream();
-
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-
-                while ((bytesRead =
-                        inputStream.read(buffer)) != -1) {
-                    fileOutputStream.write(
-                        buffer, 0, bytesRead);
-                }
-
-                fileOutputStream.close();
-
-                System.out.println("File received successfully.");
-                System.out.println("Saved as: " + outputFile);
-
-            } else {
-                System.out.println("File not found on server.");
-            }
-
-            socket.close();
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-}</code></pre>
-</section><section class="card subcard">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 09</div><h2>Python File Transfer — Client</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-9-11', this)">Copy Code</button></div>
-<p class="note">Run the Python server first, then this client in a second terminal. Put the file to send in the client working folder.</p>
-<pre><code id="code-9-11"># File Transfer Client
-
-import socket
-import os
-
-HOST = "127.0.0.1"
-PORT = 5001
-
-filename = input("Enter file name to send: ")
-
-if not os.path.isfile(filename):
-    print("File not found!")
+if solve(0):
+    print(&quot;Solution for&quot;, N, &quot;Queens:&quot;)
+    for row in range(N):
+        for col in range(N):
+            if board[row] == col:
+                print(&quot;Q&quot;, end=&quot; &quot;)
+            else:
+                print(&quot;.&quot;, end=&quot; &quot;)
+        print()
 else:
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((HOST, PORT))
+    print(&quot;No solution exists&quot;)</code></pre>
+    </section><section class="experiment" id="exp3">
+      <div class="card-head"><span class="number">03</span><h2>Experiment 3B: 8-Puzzle using A* Search</h2></div>
+      <p class="aim"><strong>Aim:</strong> To solve the 8-Puzzle Problem using the A* search algorithm.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Experiment 3B: 8-Puzzle using A* Search
 
-    with open(filename, "rb") as file:
-        while True:
-            data = file.read(1024)
-            if not data:
-                break
-            client.sendall(data)
+import heapq
 
-    client.shutdown(socket.SHUT_WR)
+start = (1, 2, 3,
+         4, 0, 6,
+         7, 5, 8)
 
-    message = client.recv(1024).decode()
-    print("Server:", message)
+goal = (1, 2, 3,
+        4, 5, 6,
+        7, 8, 0)
 
-    client.close()</code></pre>
-</section><section class="card subcard">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 09</div><h2>Python File Transfer — Server</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-9-12', this)">Copy Code</button></div>
-<p class="note">Run this server first. It saves received data as received_file.txt; then run the client in a separate terminal.</p>
-<pre><code id="code-9-12"># File Transfer Server
+def heuristic(state):
+    distance = 0
 
-import socket
+    for i, value in enumerate(state):
+        if value != 0:
+            target = goal.index(value)
+            distance += abs(i // 3 - target // 3)
+            distance += abs(i % 3 - target % 3)
 
-HOST = "127.0.0.1"
-PORT = 5001
+    return distance
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind((HOST, PORT))
-server.listen(1)
+def get_neighbors(state):
+    zero = state.index(0)
+    row, col = zero // 3, zero % 3
+    neighbors = []
 
-print("Server is waiting for client...")
+    moves = [(-1, 0), (1, 0),
+             (0, -1), (0, 1)]
 
-conn, addr = server.accept()
-print("Connected to:", addr)
+    for dr, dc in moves:
+        r, c = row + dr, col + dc
 
-with conn:
-    with open("received_file.txt", "wb") as file:
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            file.write(data)
+        if 0 &lt;= r &lt; 3 and 0 &lt;= c &lt; 3:
+            new_pos = r * 3 + c
+            temp = list(state)
 
-    conn.sendall(b"File received successfully!")
+            temp[zero], temp[new_pos] = (
+                temp[new_pos], temp[zero]
+            )
 
-print("File received successfully.")
-server.close()</code></pre>
-</section>
-<section class="card" id="exp10">
-<div class="cardhead"><div><div class="exp">EXPERIMENT 10</div><h2>NSLOOKUP</h2><span class="lang">Python</span></div>
-<button class="copy" onclick="copyCode('code-10-11', this)">Copy Code</button></div>
-<p class="note">NSLOOKUP needs the operating-system command and network/DNS access; some online compilers block this.</p>
-<pre><code id="code-10-11"># NSLOOKUP Program
+            neighbors.append(tuple(temp))
 
-import subprocess
+    return neighbors
 
-domain = input("Enter domain name: ")
+def solve_puzzle(start):
+    pq = [(heuristic(start), 0, start)]
+    parent = {start: None}
+    cost = {start: 0}
 
-try:
-    result = subprocess.run(
-        ["nslookup", domain],
-        capture_output=True,
-        text=True,
-        timeout=10
-    )
+    while pq:
+        f, g, state = heapq.heappop(pq)
 
-    print("\nNSLOOKUP Result:")
-    print(result.stdout)
+        if state == goal:
+            path = []
 
-    if result.returncode != 0 and result.stderr:
-        print("Error:", result.stderr)
+            while state is not None:
+                path.append(state)
+                state = parent[state]
 
-except FileNotFoundError:
-    print("NSLOOKUP command not found.")
+            return path[::-1]
 
-except subprocess.TimeoutExpired:
-    print("Request timed out.")</code></pre>
-</section>
-<div class="foot">Tip: Click “Copy Code” on any code box, then paste it into your editor.</div>
-</div>
-<script>
-async function copyCode(id, button){
-  const text = document.getElementById(id).innerText;
-  const original = button.innerText;
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(text);
-    } else {
-      const area = document.createElement('textarea');
-      area.value = text; area.style.position = 'fixed'; area.style.opacity = '0';
-      document.body.appendChild(area); area.select();
-      const ok = document.execCommand('copy'); area.remove();
-      if (!ok) throw new Error('Copy failed');
-    }
-    button.innerText = 'Copied!';
-  } catch (e) {
-    button.innerText = 'Select code';
-    const range = document.createRange(); range.selectNodeContents(document.getElementById(id));
-    const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range);
-  }
-  setTimeout(() => button.innerText = original, 1400);
+        if g != cost[state]:
+            continue
+
+        for nxt in get_neighbors(state):
+            new_cost = g + 1
+
+            if new_cost &lt; cost.get(nxt, float(&quot;inf&quot;)):
+                cost[nxt] = new_cost
+                parent[nxt] = state
+
+                priority = new_cost + heuristic(nxt)
+                heapq.heappush(
+                    pq, (priority, new_cost, nxt)
+                )
+
+    return None
+
+path = solve_puzzle(start)
+
+if path:
+    print(&quot;Solution found!&quot;)
+    print(&quot;Number of moves:&quot;, len(path) - 1)
+
+    for state in path:
+        for i in range(0, 9, 3):
+            print(state[i:i + 3])
+        print()
+else:
+    print(&quot;No solution exists&quot;)</code></pre>
+    </section><section class="experiment" id="exp4">
+      <div class="card-head"><span class="number">04</span><h2>Experiment 3C: Travelling Salesman Problem</h2></div>
+      <p class="aim"><strong>Aim:</strong> To find the minimum-cost route for the Travelling Salesman Problem by checking possible city orders.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Experiment 3C: Travelling Salesman Problem
+
+from itertools import permutations
+
+# Distance between cities
+graph = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+n = len(graph)
+start = 0
+
+min_cost = float(&quot;inf&quot;)
+best_path = None
+
+# Try every possible order of remaining cities
+for route in permutations(
+    [i for i in range(n) if i != start]
+):
+    path = (start,) + route + (start,)
+
+    cost = 0
+
+    for i in range(len(path) - 1):
+        cost += graph[path[i]][path[i + 1]]
+
+    if cost &lt; min_cost:
+        min_cost = cost
+        best_path = path
+
+print(&quot;Best route:&quot;)
+print(&quot; -&gt; &quot;.join(str(city) for city in best_path))
+
+print(&quot;Minimum cost:&quot;, min_cost)</code></pre>
+    </section><section class="experiment" id="exp5">
+      <div class="card-head"><span class="number">05</span><h2>Experiment 4A: A* Search Algorithm</h2></div>
+      <p class="aim"><strong>Aim:</strong> To implement the A* search algorithm to find a path with minimum cost.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Experiment 4A: A* Search Algorithm
+
+graph = {
+    &#x27;A&#x27;: [(&#x27;B&#x27;, 1), (&#x27;C&#x27;, 4)],
+    &#x27;B&#x27;: [(&#x27;C&#x27;, 2), (&#x27;D&#x27;, 5)],
+    &#x27;C&#x27;: [(&#x27;D&#x27;, 1)],
+    &#x27;D&#x27;: []
 }
-</script>
-</body>
-</html>
+
+heuristic = {
+    &#x27;A&#x27;: 4,
+    &#x27;B&#x27;: 3,
+    &#x27;C&#x27;: 1,
+    &#x27;D&#x27;: 0
+}
+
+def astar(start, goal):
+    open_list = [(heuristic[start], 0, start, [start])]
+    visited = set()
+
+    while open_list:
+        open_list.sort()
+        f, g, node, path = open_list.pop(0)
+
+        if node == goal:
+            print(&quot;Shortest path:&quot;, &quot; -&gt; &quot;.join(path))
+            print(&quot;Total cost:&quot;, g)
+            return
+
+        if node in visited:
+            continue
+
+        visited.add(node)
+
+        for neighbor, cost in graph[node]:
+            if neighbor not in visited:
+                new_g = g + cost
+                new_f = new_g + heuristic[neighbor]
+
+                open_list.append(
+                    (new_f, new_g, neighbor, path + [neighbor])
+                )
+
+    print(&quot;Path not found&quot;)
+
+astar(&#x27;A&#x27;, &#x27;D&#x27;)</code></pre>
+    </section><section class="experiment" id="exp6">
+      <div class="card-head"><span class="number">06</span><h2>Experiment 4B: Alpha-Beta Pruning</h2></div>
+      <p class="aim"><strong>Aim:</strong> To implement Alpha-Beta Pruning to find the optimal value in a game tree.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Experiment 4B: Alpha-Beta Pruning
+
+def alphabeta(depth, node, maximizing,
+              values, alpha, beta):
+
+    if depth == 3:
+        return values[node]
+
+    if maximizing:
+        best = float(&#x27;-inf&#x27;)
+
+        for i in range(2):
+            value = alphabeta(
+                depth + 1,
+                node * 2 + i,
+                False,
+                values,
+                alpha,
+                beta
+            )
+
+            best = max(best, value)
+            alpha = max(alpha, best)
+
+            if alpha &gt;= beta:
+                break
+
+        return best
+
+    else:
+        best = float(&#x27;inf&#x27;)
+
+        for i in range(2):
+            value = alphabeta(
+                depth + 1,
+                node * 2 + i,
+                True,
+                values,
+                alpha,
+                beta
+            )
+
+            best = min(best, value)
+            beta = min(beta, best)
+
+            if alpha &gt;= beta:
+                break
+
+        return best
+
+
+# Leaf-node values of a binary game tree
+values = [3, 5, 6, 9, 1, 2, 0, -1]
+
+result = alphabeta(
+    0, 0, True, values,
+    float(&#x27;-inf&#x27;), float(&#x27;inf&#x27;)
+)
+
+print(&quot;Optimal value:&quot;, result)</code></pre>
+    </section><section class="experiment" id="exp7">
+      <div class="card-head"><span class="number">07</span><h2>Experiment 5: Single Layer Perceptron (AND Gate)</h2></div>
+      <p class="aim"><strong>Aim:</strong> To implement a Single Layer Perceptron and train it to produce the AND gate output.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Experiment 5: Single Layer Perceptron
+# Implementing AND Gate
+
+# Training data: AND gate
+X = [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+]
+
+Y = [0, 0, 0, 1]
+
+# Initialize weights and bias
+w1 = 0.0
+w2 = 0.0
+bias = 0.0
+
+learning_rate = 0.1
+epochs = 10
+
+# Step activation function
+def activation(value):
+    if value &gt;= 0:
+        return 1
+    return 0
+
+# Training
+for epoch in range(epochs):
+    for i in range(len(X)):
+        x1, x2 = X[i]
+        target = Y[i]
+
+        net = x1 * w1 + x2 * w2 + bias
+        output = activation(net)
+
+        error = target - output
+
+        w1 = w1 + learning_rate * error * x1
+        w2 = w2 + learning_rate * error * x2
+        bias = bias + learning_rate * error
+
+# Display results
+print(&quot;Final weights:&quot;, w1, w2)
+print(&quot;Final bias:&quot;, bias)
+
+print(&quot;\nAND Gate Output:&quot;)
+for inputs in X:
+    net = inputs[0] * w1 + inputs[1] * w2 + bias
+    output = activation(net)
+    print(inputs, &quot;-&gt;&quot;, output)</code></pre>
+    </section><section class="experiment" id="exp8">
+      <div class="card-head"><span class="number">08</span><h2>Experiment 6: Multi-Layer Perceptron using Supervised Learning</h2></div>
+      <p class="aim"><strong>Aim:</strong> To demonstrate a Multi-Layer Perceptron (MLP) using supervised learning for the XOR problem.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code>import math
+
+# Sigmoid activation function
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
+
+# XOR input and target output
+X = [[0, 0], [0, 1], [1, 0], [1, 1]]
+Y = [0, 1, 1, 0]
+
+# Fixed weights for hidden layer
+W1 = [[20, 20], [-20, -20]]
+B1 = [-10, 30]
+
+# Fixed weights for output layer
+W2 = [20, 20]
+B2 = -30
+
+print(&quot;Multi-Layer Perceptron using Supervised Learning&quot;)
+print(&quot;Input\tPredicted Output&quot;)
+
+for inputs in X:
+    hidden = []
+    for i in range(2):
+        z = W1[i][0] * inputs[0] + W1[i][1] * inputs[1] + B1[i]
+        hidden.append(sigmoid(z))
+
+    output = sigmoid(W2[0] * hidden[0] + W2[1] * hidden[1] + B2)
+    prediction = 1 if output &gt;= 0.5 else 0
+
+    print(inputs, &quot;\t&quot;, prediction)</code></pre>
+    </section><section class="experiment" id="exp9">
+      <div class="card-head"><span class="number">09</span><h2>Experiment 7A: Self-Organizing Map (SOM)</h2></div>
+      <p class="aim"><strong>Aim:</strong> To implement a Self-Organizing Map (SOM) for unsupervised learning and organize input patterns.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code>import math
+
+# Input data
+data = [[1, 1], [1, 0], [0, 1], [0, 0]]
+
+# Initial neuron weights
+weights = [[0.2, 0.8], [0.8, 0.2]]
+
+learning_rate = 0.5
+
+# Train SOM
+for inputs in data:
+    # Find the Best Matching Unit (BMU)
+    distances = []
+    for w in weights:
+        d = math.sqrt(
+            (inputs[0] - w[0]) ** 2 +
+            (inputs[1] - w[1]) ** 2
+        )
+        distances.append(d)
+
+    winner = distances.index(min(distances))
+
+    # Update winner&#x27;s weights
+    for j in range(2):
+        weights[winner][j] += learning_rate * (
+            inputs[j] - weights[winner][j]
+        )
+
+print(&quot;Final SOM Weights:&quot;)
+for w in weights:
+    print([round(v, 2) for v in w])</code></pre>
+    </section><section class="experiment" id="exp10">
+      <div class="card-head"><span class="number">10</span><h2>Experiment 7B: Learning Vector Quantization (LVQ)</h2></div>
+      <p class="aim"><strong>Aim:</strong> To implement Learning Vector Quantization (LVQ) using labeled training data.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code>import math
+
+# Training data with class labels
+data = [
+    ([1, 1], 0),
+    ([1, 0], 0),
+    ([0, 1], 1),
+    ([0, 0], 1)
+]
+
+# Initial prototype weights and their classes
+weights = [[0.8, 0.8], [0.2, 0.2]]
+labels = [0, 1]
+
+learning_rate = 0.3
+
+# Train LVQ
+for inputs, target in data:
+    distances = []
+    for w in weights:
+        d = math.sqrt(
+            (inputs[0] - w[0]) ** 2 +
+            (inputs[1] - w[1]) ** 2
+        )
+        distances.append(d)
+
+    winner = distances.index(min(distances))
+
+    # Move weight toward or away from input
+    for j in range(2):
+        if labels[winner] == target:
+            weights[winner][j] += learning_rate * (
+                inputs[j] - weights[winner][j]
+            )
+        else:
+            weights[winner][j] -= learning_rate * (
+                inputs[j] - weights[winner][j]
+            )
+
+print(&quot;Final LVQ Weights:&quot;)
+for w in weights:
+    print([round(v, 2) for v in w])
+
+print(&quot;Prototype Classes:&quot;, labels)</code></pre>
+    </section><section class="experiment" id="exp11">
+      <div class="card-head"><span class="number">11</span><h2>Experiment 8A: Hopfield Network</h2></div>
+      <p class="aim"><strong>Aim:</strong> To implement associative memory using a Hopfield Network and recall a stored pattern.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code>pattern = [1, -1, 1]
+n = len(pattern)
+
+# Initialize weight matrix
+weights = [[0] * n for _ in range(n)]
+
+# Train the network
+for i in range(n):
+    for j in range(n):
+        if i != j:
+            weights[i][j] = pattern[i] * pattern[j]
+
+# Noisy input
+input_pattern = [1, -1, -1]
+output = input_pattern.copy()
+
+# Recall pattern
+for i in range(n):
+    total = sum(weights[i][j] * output[j] for j in range(n))
+    output[i] = 1 if total &gt;= 0 else -1
+
+print(&quot;Stored Pattern:&quot;, pattern)
+print(&quot;Input Pattern:&quot;, input_pattern)
+print(&quot;Recalled Pattern:&quot;, output)</code></pre>
+    </section><section class="experiment" id="exp12">
+      <div class="card-head"><span class="number">12</span><h2>Experiment 8B: Bidirectional Associative Memory (BAM)</h2></div>
+      <p class="aim"><strong>Aim:</strong> To implement BAM and demonstrate forward and backward recall between associated patterns.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code>X = [1, -1]
+Y = [1, -1, 1]
+
+# Create weight matrix
+weights = [
+    [X[i] * Y[j] for j in range(len(Y))]
+    for i in range(len(X))
+]
+
+print(&quot;Input X:&quot;, X)
+print(&quot;Associated Y:&quot;, Y)
+
+# Forward recall: X -&gt; Y
+output_y = [
+    1 if sum(X[i] * weights[i][j] for i in range(len(X))) &gt;= 0 else -1
+    for j in range(len(Y))
+]
+
+print(&quot;Forward Recall:&quot;, output_y)
+
+# Backward recall: Y -&gt; X
+output_x = [
+    1 if sum(Y[j] * weights[i][j] for j in range(len(Y))) &gt;= 0 else -1
+    for i in range(len(X))
+]
+
+print(&quot;Backward Recall:&quot;, output_x)</code></pre>
+    </section><section class="experiment" id="exp13">
+      <div class="card-head"><span class="number">13</span><h2>Experiment 9: Fuzzy Membership Functions and Fuzzification</h2></div>
+      <p class="aim"><strong>Aim:</strong> To implement a triangular membership function and convert a crisp input into fuzzy membership values.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Triangular membership function
+def triangular(x, a, b, c):
+    if x &lt;= a or x &gt;= c:
+        return 0.0
+    elif x == b:
+        return 1.0
+    elif x &lt; b:
+        return (x - a) / (b - a)
+    else:
+        return (c - x) / (c - b)
+
+
+# Crisp input
+temperature = 30
+
+# Membership values
+cold = triangular(temperature, 0, 15, 30)
+warm = triangular(temperature, 15, 30, 45)
+hot = triangular(temperature, 30, 45, 60)
+
+# Display results
+print(&quot;Crisp Temperature:&quot;, temperature)
+print(&quot;Fuzzy Membership Values:&quot;)
+print(&quot;Cold:&quot;, round(cold, 2))
+print(&quot;Warm:&quot;, round(warm, 2))
+print(&quot;Hot:&quot;, round(hot, 2))</code></pre>
+    </section><section class="experiment" id="exp14">
+      <div class="card-head"><span class="number">14</span><h2>Experiment 10: Fuzzy Logic Controller</h2></div>
+      <p class="aim"><strong>Aim:</strong> To design and simulate fuzzy controllers for fan speed and irrigation amount.</p>
+      <div class="code-head"><span>Python Code</span><button class="copy" type="button">Copy code</button></div>
+      <pre><code># Experiment 10: Fuzzy Logic Controller
+# Fan Speed and Irrigation Amount
+
+print(&quot;FUZZY LOGIC CONTROLLER&quot;)
+print(&quot;1. Fan Speed Controller&quot;)
+print(&quot;2. Irrigation Controller&quot;)
+
+choice = int(input(&quot;Enter your choice (1 or 2): &quot;))
+
+if choice == 1:
+    temperature = float(input(&quot;Enter temperature (0-40 C): &quot;))
+
+    if temperature &lt; 0 or temperature &gt; 40:
+        print(&quot;Invalid temperature!&quot;)
+    elif temperature &lt;= 15:
+        print(&quot;Fan Speed: LOW (20%)&quot;)
+    elif temperature &lt;= 25:
+        print(&quot;Fan Speed: MEDIUM (50%)&quot;)
+    else:
+        print(&quot;Fan Speed: HIGH (90%)&quot;)
+
+elif choice == 2:
+    moisture = float(input(&quot;Enter soil moisture (0-100%): &quot;))
+
+    if moisture &lt; 0 or moisture &gt; 100:
+        print(&quot;Invalid soil moisture!&quot;)
+    elif moisture &lt;= 30:
+        print(&quot;Irrigation Amount: HIGH (90%)&quot;)
+    elif moisture &lt;= 60:
+        print(&quot;Irrigation Amount: MEDIUM (50%)&quot;)
+    else:
+        print(&quot;Irrigation Amount: LOW (10%)&quot;)
+
+else:
+    print(&quot;Invalid choice!&quot;)</code></pre>
+    </section></main></div><footer>index.html · Experiments 3–10</footer></div>
+<script>document.querySelectorAll('.copy').forEach(button=>{button.addEventListener('click',async()=>{const code=button.closest('.experiment').querySelector('code').innerText;try{await navigator.clipboard.writeText(code);button.textContent='Copied!';}catch(e){const area=document.createElement('textarea');area.value=code;document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();button.textContent='Copied!';}setTimeout(()=>button.textContent='Copy code',1400);});});</script>
+</body></html>
